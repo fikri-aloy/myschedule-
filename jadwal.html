@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Jadwal & Tugas - MySchedule</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md px-6 py-4 flex justify-center gap-8 text-lg font-medium">
+    <a href="index.html" class="text-blue-600 hover:underline">Beranda</a>
+    <a href="jadwal.html" class="text-blue-600 hover:underline">Jadwal & Tugas</a>
+    <a href="piket.html" class="text-blue-600 hover:underline">Jadwal Piket</a>
+  </nav>
+
+  <div class="max-w-6xl mx-auto px-4 py-10">
+    <h1 class="text-4xl font-bold text-center mb-10">📘 Jadwal Pelajaran & Tugas</h1>
+
+    <!-- Tabs -->
+    <div class="flex justify-center mb-8">
+      <div class="inline-flex rounded-md shadow-sm">
+        <button id="tabUmum" class="px-4 py-2 text-sm font-medium rounded-l-lg bg-blue-600 text-white">
+          Minggu Umum
+        </button>
+        <button id="tabProduktif" class="px-4 py-2 text-sm font-medium rounded-r-lg bg-gray-200 text-gray-800 hover:bg-gray-300">
+          Minggu Produktif
+        </button>
+      </div>
+    </div>
+
+    <!-- Form Tambah Tugas -->
+    <div class="bg-white p-6 rounded-xl shadow-md mb-10">
+      <h2 class="text-2xl font-semibold mb-4">➕ Tambah Tugas</h2>
+      <form id="formTugas" class="space-y-4">
+        <input type="text" id="judul" placeholder="Judul Tugas" class="border p-2 w-full rounded" required />
+        <input type="date" id="tanggal" class="border p-2 w-full rounded" required />
+        <div class="flex gap-4">
+          <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+            Simpan Tugas
+          </button>
+          <button type="button" id="btnGoogle" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
+            Tambah ke Google Calendar
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Checklist Tugas -->
+    <div class="bg-white p-6 rounded-xl shadow-md mb-10">
+      <h2 class="text-2xl font-semibold mb-4">📋 Daftar Tugas</h2>
+      <ul id="daftarTugas" class="space-y-2"></ul>
+    </div>
+
+    <!-- Jadwal Pelajaran Umum -->
+    <div id="jadwalUmum" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Senin -->
+      <div class="bg-white p-6 rounded-xl shadow-md">
+        <h2 class="text-xl font-semibold mb-2 text-blue-600">Senin</h2>
+        <ul class="list-disc ml-5 space-y-1">
+          <li>Upacara</li>
+          <li>PAI</li>
+          <li>Bahasa Indonesia</li>
+          <li>Bahasa Inggris</li>
+          <li>Bimbingan Konseling</li>
+        </ul>
+      </div>
+      <!-- Selasa -->
+      <div class="bg-white p-6 rounded-xl shadow-md">
+        <h2 class="text-xl font-semibold mb-2 text-blue-600">Selasa</h2>
+        <ul class="list-disc ml-5 space-y-1">
+          <li>PPKN</li>
+          <li>Bahasa Indonesia</li>
+          <li>Bahasa Sunda</li>
+          <li>PJOK</li>
+        </ul>
+      </div>
+      <!-- Rabu -->
+      <div class="bg-white p-6 rounded-xl shadow-md">
+        <h2 class="text-xl font-semibold mb-2 text-blue-600">Rabu</h2>
+        <ul class="list-disc ml-5 space-y-1">
+          <li>Sejarah</li>
+          <li>Seni Budaya</li>
+          <li>Bahasa Inggris</li>
+          <li>PJOK</li>
+        </ul>
+      </div>
+      <!-- Kamis -->
+      <div class="bg-white p-6 rounded-xl shadow-md">
+        <h2 class="text-xl font-semibold mb-2 text-blue-600">Kamis</h2>
+        <ul class="list-disc ml-5 space-y-1">
+          <li>PAI</li>
+          <li>Bahasa Sunda</li>
+          <li>PPKN</li>
+          <li>Bimbingan Konseling</li>
+        </ul>
+      </div>
+      <!-- Jumat -->
+      <div class="bg-white p-6 rounded-xl shadow-md">
+        <h2 class="text-xl font-semibold mb-2 text-blue-600">Jumat</h2>
+        <ul class="list-disc ml-5 space-y-1">
+          <li>Senbud</li>
+          <li>PJOK</li>
+          <li>English Club</li>
+          <li>Prakarya</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Jadwal Pelajaran Produktif (hidden by default) -->
+    <div id="jadwalProduktif" class="grid grid-cols-1 md:grid-cols-2 gap-6 hidden">
+      <!-- Senin -->
+      <div class="bg-white p-6 rounded-xl shadow-md">
+        <h2 class="text-xl font-semibold mb-2 text-blue-600">Senin</h2>
+        <ul class="list-disc ml-5 space-y-1">
+          <li>Matematika</li>
+          <li>Informatika</li>
+          <li>Dasar-dasar PPLG 1</li>
+          <li>Dasar-dasar PPLG 2</li>
+        </ul>
+      </div>
+      <!-- Selasa -->
+      <div class="bg-white p-6 rounded-xl shadow-md">
+        <h2 class="text-xl font-semibold mb-2 text-blue-600">Selasa</h2>
+        <ul class="list-disc ml-5 space-y-1">
+          <li>Matematika</li>
+          <li>Informatika</li>
+          <li>Dasar-dasar PPLG 3</li>
+          <li>Dasar-dasar PPLG 4</li>
+        </ul>
+      </div>
+      <!-- Rabu -->
+      <div class="bg-white p-6 rounded-xl shadow-md">
+        <h2 class="text-xl font-semibold mb-2 text-blue-600">Rabu</h2>
+        <ul class="list-disc ml-5 space-y-1">
+          <li>Projek IPAS</li>
+          <li>Dasar-dasar PPLG 5</li>
+          <li>Bahasa Inggris</li>
+          <li>Matematika</li>
+        </ul>
+      </div>
+      <!-- Kamis -->
+      <div class="bg-white p-6 rounded-xl shadow-md">
+        <h2 class="text-xl font-semibold mb-2 text-blue-600">Kamis</h2>
+        <ul class="list-disc ml-5 space-y-1">
+          <li>Informatika</li>
+          <li>Projek IPAS</li>
+          <li>Dasar-dasar PPLG 1</li>
+          <li>Dasar-dasar PPLG 3</li>
+        </ul>
+      </div>
+      <!-- Jumat -->
+      <div class="bg-white p-6 rounded-xl shadow-md">
+        <h2 class="text-xl font-semibold mb-2 text-blue-600">Jumat</h2>
+        <ul class="list-disc ml-5 space-y-1">
+          <li>Dasar-dasar PPLG 2</li>
+          <li>Dasar-dasar PPLG 4</li>
+          <li>Dasar-dasar PPLG 5</li>
+          <li>Bahasa Inggris</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    const form = document.getElementById('formTugas');
+    const daftarTugas = document.getElementById('daftarTugas');
+    const btnGoogle = document.getElementById('btnGoogle');
+    const tabUmum = document.getElementById('tabUmum');
+    const tabProduktif = document.getElementById('tabProduktif');
+    const jadwalUmum = document.getElementById('jadwalUmum');
+    const jadwalProduktif = document.getElementById('jadwalProduktif');
+
+    let tugasList = JSON.parse(localStorage.getItem('tugasList')) || [];
+
+    // Tab switching functionality
+    tabUmum.addEventListener('click', function() {
+      jadwalUmum.classList.remove('hidden');
+      jadwalProduktif.classList.add('hidden');
+      tabUmum.classList.remove('bg-gray-200', 'text-gray-800');
+      tabUmum.classList.add('bg-blue-600', 'text-white');
+      tabProduktif.classList.remove('bg-blue-600', 'text-white');
+      tabProduktif.classList.add('bg-gray-200', 'text-gray-800');
+    });
+
+    tabProduktif.addEventListener('click', function() {
+      jadwalUmum.classList.add('hidden');
+      jadwalProduktif.classList.remove('hidden');
+      tabProduktif.classList.remove('bg-gray-200', 'text-gray-800');
+      tabProduktif.classList.add('bg-blue-600', 'text-white');
+      tabUmum.classList.remove('bg-blue-600', 'text-white');
+      tabUmum.classList.add('bg-gray-200', 'text-gray-800');
+    });
+
+    function renderTugas() {
+      daftarTugas.innerHTML = '';
+      tugasList.forEach((tugas, index) => {
+        const li = document.createElement('li');
+        li.className = "flex items-center justify-between bg-gray-100 px-4 py-2 rounded";
+        li.innerHTML = `
+          <label class="flex items-center gap-2">
+            <input type="checkbox" ${tugas.selesai ? 'checked' : ''} onchange="toggleTugas(${index})" />
+            <span class="${tugas.selesai ? 'line-through text-gray-500' : ''}">
+              ${tugas.judul} - ${tugas.tanggal}
+            </span>
+          </label>
+          <button onclick="hapusTugas(${index})" class="text-red-600 hover:underline">Hapus</button>
+        `;
+        daftarTugas.appendChild(li);
+      });
+    }
+
+    function simpanLocal() {
+      localStorage.setItem('tugasList', JSON.stringify(tugasList));
+    }
+
+    function toggleTugas(index) {
+      tugasList[index].selesai = !tugasList[index].selesai;
+      simpanLocal();
+      renderTugas();
+    }
+
+    function hapusTugas(index) {
+      tugasList.splice(index, 1);
+      simpanLocal();
+      renderTugas();
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const judul = document.getElementById('judul').value;
+      const tanggal = document.getElementById('tanggal').value;
+
+      tugasList.push({ judul, tanggal, selesai: false });
+      simpanLocal();
+      renderTugas();
+
+      form.reset();
+    });
+
+    btnGoogle.addEventListener('click', function() {
+      const judul = document.getElementById('judul').value;
+      const tanggal = document.getElementById('tanggal').value;
+      if (!judul || !tanggal) return alert("Isi judul dan tanggal dulu");
+
+      const mulai = tanggal.replace(/-/g, '') + 'T080000Z';
+      const selesai = tanggal.replace(/-/g, '') + 'T090000Z';
+      const link = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(judul)}&dates=${mulai}/${selesai}&details=Jangan lupa kumpulkan tugas!&sf=true&output=xml`;
+
+      window.open(link, '_blank');
+    });
+
+    renderTugas();
+    window.toggleTugas = toggleTugas;
+    window.hapusTugas = hapusTugas;
+  </script>
+
+</body>
+</html>
